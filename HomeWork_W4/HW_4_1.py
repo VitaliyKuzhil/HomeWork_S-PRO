@@ -2,46 +2,38 @@ class FormulaError(Exception):
     """Use this, when the formula for my program is entered incorrectly"""
 
 
+list_str = input().split()
+
+
 def calculator(string):
-    list_str = string.split()
+    x, y = float(string[0]), float(string[2])
 
-    try:
-        if len(list_str) != 3:
-            raise FormulaError
-
-        float(list_str[0]) and float(list_str[2])
-
-        if list_str[1] not in ['+', '-', '*', '/']:
-            raise FormulaError
-    except (FormulaError, ValueError):
-        return 'FormulaError'
-    else:
-        x, y = float(list_str[0]), float(list_str[2])
-
-        if list_str[1] == '+':
-            return f'{x} {list_str[1]} {y} = {x + y}'
-        elif list_str[1] == '-':
-            return f'{x} {list_str[1]} {y} = {x - y}'
-        elif list_str[1] == '*':
-            return f'{x} {list_str[1]} {y} = {x * y}'
-        elif list_str[1] == '/':
-            try:
-                result = x / y
-                return f'{x} {list_str[1]} {y} = {result}'
-            except ZeroDivisionError:
-                result = "Can't divide by NULL"
-                return result
+    if string[1] == '+':
+        return f'{x} {string[1]} {y} = {x + y}'
+    elif string[1] == '-':
+        return f'{x} {string[1]} {y} = {x - y}'
+    elif string[1] == '*':
+        return f'{x} {string[1]} {y} = {x * y}'
+    elif string[1] == '/':
+        return f'{x} {string[1]} {y} = {x / y}'
 
 
-print(calculator('7 + 3'))
-print(calculator('10 - 2'))
-print(calculator('2 * 6'))
-print(calculator('12 / 4'))
+try:
+    if len(list_str) != 3:
+        raise FormulaError
 
-print(calculator('5 . 1'))
-print(calculator('7e - 2'))
-print(calculator('3 * 8g'))
-print(calculator('10 - 2 / 4'))
+    float(list_str[0]) and float(list_str[2])
+
+    if list_str[1] not in ['+', '-', '*', '/']:
+        raise FormulaError
+
+    if list_str[1] == '/' and list_str[2] == '0':
+        raise FormulaError
+
+except (FormulaError, ValueError):
+    print('FormulaError')
+else:
+    print(calculator(list_str))
 
 # 1) Необхідно написати функцію калькулятор, яка приймає рядок, що складається з числа,
 # оператора та другого числа розділених пробілом. Наприклад ('1+1'); Необхідно розділити рядок,

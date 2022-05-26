@@ -1,0 +1,5 @@
+1: Python Beginner w1
+2: Python Beginner w2
+3: Python Intermediate w1
+4: Python Intermediate w2
+5: Python Intermediate w3
